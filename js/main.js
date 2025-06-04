@@ -1,50 +1,4 @@
-// // Function to load HTML components
-// async function loadComponent(url, containerId) {
-//     try {
-//         const response = await fetch(url);
-//         const html = await response.text();
-//         document.getElementById(containerId).innerHTML = html;
-//     } catch (error) {
-//         console.error(`Error loading ${url}: ${error}`);
-//     }
-// }
 
-// // Load all components when document is ready
-// document.addEventListener('DOMContentLoaded', function() {
-//     loadComponent('components/header.html', 'header-source');
-//     loadComponent('components/social-media-list.html','social-media-list-source');
-//     loadComponent('components/carousel.html', 'carousel-source');
-//     loadComponent('components/categories.html', 'category-source');
-//     loadComponent('components/shopping-grid-1.html','shopping-grid-1-source');
-//     loadComponent('components/shopping-grid-2.html','shopping-grid-2-source');
-//     loadComponent('components/shopping-grid-3.html','shopping-grid-3-source');
-//     loadComponent('components/products-1.html', 'products-1-source');
-//     loadComponent('components/activity.html','activity-source');
-//     loadComponent('components/featured-brand.html','featured-brand-source');
-//     loadComponent('components/online-exclusive.html','online-exclusive-source');
-//     loadComponent('components/mask-collection.html','mask-collection-source');
-//     loadComponent('components/serum-collection.html','serum-collection-source');
-//     loadComponent('components/toner-cream.html','toner-cream-source');
-//     loadComponent('components/trendy-makeup.html','trendy-makeup-source');
-//     loadComponent('components/personal-care.html','personal-care-source');
-//     loadComponent('components/health-care.html','health-care-source');
-//     loadComponent('components/hair-care.html','hair-care-source');
-//     loadComponent('components/fragrance-candles.html','fragrance-candles-source');
-//     loadComponent('components/beauty.html','beauty-source');
-//     loadComponent('components/bath-body-care.html','bath-body-care-source');
-//     loadComponent('components/footer.html', 'footer-source');
-//     loadComponent('components/payment.html','payment-source');
-    
-//     // Initialize components after they've loaded
-//     setTimeout(() => {
-//         initCarousel();
-//         initDuoProductCarousel();
-//         InitBrandCarousel();
-//         InitSocialMediaList();
-//     }, 100);
-// });
-
-// Function to load HTML components with Promise
 async function loadComponent(url, containerId) {
     try {
         const response = await fetch(url);
@@ -143,8 +97,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         await new Promise(resolve => setTimeout(resolve, 50));
         safeInitialize('initSocialMediaList', 'Social Media List'); // Note: corrected function name casing
 
-        await new Promise(resolve => setTimeout(resolve,50));
-        safeInitialize('updateCountdown','Count Down');
+        // await new Promise(resolve => setTimeout(resolve,50));
+        // safeInitialize('updateCountdown','Count Down');
         
         // Additional initializations as needed
         
