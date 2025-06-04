@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>香港莎莎網店｜最大型美妝購物平台</title>
+     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+        }
+        
+        body {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        /*header*/
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            grid-template-rows: auto auto;
+            grid-template-areas: 
+                "logo top"
+                "logo bottom";
+            align-items: center;
+        }
+
+        /* Logo section that spans both rows */
+        .logo-section {
+            grid-area: logo;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            /* border-right: 1px solid #eee; */
+        }
+        
+        .logo {
+            max-width: 150px;
+            max-height: 80px;
+        }
+
+        /* Header top section with icon bar */
+        .header-top {
+            grid-area: top;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px 20px;
+            /* border-bottom: 1px solid #eee; */
+        }
+        
+        /* Header bottom section with nav links and search */
+        .header-bottom {
+            grid-area: bottom;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        /*promotion slogan*/
+        .top-banner {
+            background-color: #ff4081;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        .nav-links a:hover {
+            color: #ff4081;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #ff4081;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .cart-icon {
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ff4081;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+         /* Icon Bar Styles */
+        .icon-bar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .icon-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .icon-item i {
+            font-size: 18px;
+            color: #666;
+        }
+        
+        .icon-item span {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .icon-item:hover i,
+        .icon-item:hover span {
+            color: #ff4081;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            min-width: 120px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1;
+            border-radius: 4px;
+            padding: 10px 0;
+            margin-top: 10px;
+        }
+        
+        .dropdown-content a {
+            color: #333;
+            padding: 8px 15px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: #f9f9f9;
+            color: #ff4081;
+        }
+        
+        .icon-item:hover .dropdown-content {
+            display: block;
+        }
+
+        /*search box*/
+        .search-box {
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 20px;
+            width: 220px;
+            outline: none;
+        }
+        
+        .search-box:focus {
+            border-color: #ff4081;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            margin: 20px 0;
+            color: #666;
+        }
+        
+        /* Image Carousel Styles */
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 400px;
+        }
+        
+        .carousel-item {
+            min-width: 100%;
+            position: relative;
+        }
+        
+        .carousel-item a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+        }
+        
+        .carousel-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .carousel-content {
+            position: absolute;
+            bottom: 40px;
+            left: 50px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 450px;
+        }
+        
+        .carousel-content h2 {
+            color: #ff4081;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        
+        .carousel-content p {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .carousel-btn {
+            display: inline-block;
+            background-color: #ff4081;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 20px;
+        }
+        
+        .carousel-nav button {
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            color: #333;
+            font-size: 18px;
+            padding: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .carousel-nav button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .indicator {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        /* Image Button Group Styles */
+        .image-button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px 20px;
+        }
+
+        .image-button {
+            width: 100px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: #333;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-button img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        /*promotion slogan*/
+        .promotion-slogan{
+            margin-left: auto;
+            margin-right: auto;
+            width:1500px;
+            align-items: center;
+            justify-content: center;
+            cursor:pointer;
+            background-color: white;
+            position:relative;
+        }
+        .promotion-slogan img{
+            width:100%;
+            height:100px;
+            object-fit: cover;
+        }
+
+        /*countdown*/
+        .countdown-header{
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            background-color: white;
+            color:#ff4081;
+        }
+
+        .countdown-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown-value {
+            background-color: #474747;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            border-radius: 8px;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .countdown-label {
+            margin-top: 8px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .countdown-separator {
+            font-size: 28px;
+            color: #ff4081;
+            font-weight: bold;
+            margin-top: -20px;
+        }
+
+        /*Shopping List*/
+        .shopping-header{
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            background-color: white;
+            color:#ff4081;
+        }
+
+        /* Product Card Styles */
+        .product-card {
+            width: 100%;
+            max-width: 250px;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            /* transition: transform 0.3s, box-shadow 0.3s; */
+            position: relative;
+            margin: 15px;
+        }
+
+        .product-card:hover {
+            /* transform: translateY(-5px); */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* transition: transform 0.5s; */
+        }
+
+        /* .product-card:hover .product-image img { */
+            /* transform: scale(1.05); */
+        /* } */
+
+        .product-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff32e4;
+            border-radius: 50%;
+            height: 65px;
+            width: 65px;
+            display: flex;           /* Add flex display */
+            align-items: center;     /* Center vertically */
+            justify-content: center; /* Center horizontally */
+            color: white;            /* Text color */
+            font-size: 14px;         /* Text size */
+            font-weight: bold;       /* Make text bold */
+        }
+
+/* Instead of using content in CSS, add the text in the HTML */
+
+        .product-details {
+            padding: 15px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 5px;
+            height: 40px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .current-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff4081;
+        }
+
+        .original-price {
+            font-size: 14px;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .action-btn i {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .wishlist-btn:hover {
+            background-color: #ffe0eb;
+        }
+
+        .wishlist-btn:hover i {
+            color: #ff4081;
+        }
+
+        .cart-btn:hover {
+            background-color: #ff4081;
+        }
+
+        .cart-btn:hover i {
+            color: white;
+        }
+
+        /* Wishlist active state */
+        .wishlist-btn.active {
+            background-color: #ffe0eb;
+        }
+
+        .wishlist-btn.active i {
+            color: #ff4081;
+            font-weight: 900; /* Use solid heart icon when active */
+        }
+
+        /* For creating a grid of products */
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .product-card {
+                max-width: calc(50% - 30px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-card {
+                max-width: 100%;
+            }
+        }
+        
+        .indicator.active {
+            background-color: #ff4081;
+        }
+        
+        @media (max-width: 992px) {
+            header {
+                grid-template-columns: 150px 1fr;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .search-box {
+                width: 180px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto;
+                grid-template-areas: 
+                    "logo"
+                    "top"
+                    "bottom";
+            }
+            
+            .logo-section {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                padding: 10px;
+            }
+            
+            .header-top {
+                justify-content: center;
+            }
+            
+            .header-bottom {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 10px;
+                justify-content: flex-start;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .icon-bar {
+                gap: 15px;
+            }
+            
+            .icon-item span {
+                display: none;
+            }
+            
+            .carousel-content {
+                left: 20px;
+                right: 20px;
+                max-width: calc(100% - 40px);
+                bottom: 60px;
+            }
+            
+            .carousel-content h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+    <script src="jquery.js"></script> 
+    <script>
+        $(function(){
+            $("#product_list_1").load("product_list_1.html"); 
+        });
+    </script>
+</head>
+<body>
+<main>
+    <!--promotion slogan-->
+    <div class="top-banner">
+        $228搶購Sasa X 六福珠寶925銀鑲珍珠幸運兒頸鏈！ VIP專享價:$188
+    </div>
+    
+    <!--header-->
+    <header>
+        <!-- Logo section that spans both rows -->
+        <div class="logo-section">
+            <img src="sasa.png" class="logo" alt="Sasa Logo">
+        </div>
+        
+        <!-- Header Top - Icon Bar -->
+        <div class="header-top">
+            <div class="icon-bar">
+                <!-- Contact Icon -->
+                <div class="icon-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>聯絡我們</span>
+                    <div class="dropdown-content">
+                        <a href="tel:+85212345678">電話: +852 1234 5678</a>
+                        <a href="mailto:info@sasa.com.hk">電郵: info@sasa.com.hk</a>
+                        <a href="#">在線客服</a>
+                    </div>
+                </div>
+                
+                <!-- Membership Icon -->
+                <div class="icon-item">
+                    <i class="fas fa-user"></i>
+                    <span>會員專區</span>
+                    <div class="dropdown-content">
+                        <a href="#">登入</a>
+                        <a href="#">註冊</a>
+                        <a href="#">會員優惠</a>
+                        <a href="#">積分獎賞</a>
+                    </div>
+                </div>
+                
+                <!-- Shopping Cart Icon -->
+                <div class="icon-item cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>購物車</span>
+                    <div class="cart-count">0</div>
+                    <div class="dropdown-content">
+                        <a href="#">查看購物車</a>
+                        <a href="#">結帳</a>
+                    </div>
+                </div>
+                
+                <!-- Language Selection Icon -->
+                <div class="icon-item">
+                    <i class="fas fa-globe"></i>
+                    <span>語言</span>
+                    <div class="dropdown-content">
+                        <a href="#">繁體中文</a>
+                        <a href="#">English</a>
+                        <a href="#">简体中文</a>
+                    </div>
+                </div>
+                
+                <!-- Currency Selection Icon -->
+                <div class="icon-item">
+                    <i class="fas fa-dollar-sign"></i>
+                    <span>貨幣</span>
+                    <div class="dropdown-content">
+                        <a href="#">HKD 港幣</a>
+                        <a href="#">USD 美元</a>
+                        <a href="#">CNY 人民幣</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Header Bottom - Navigation Links and Search -->
+        <div class="header-bottom">
+            <div class="nav-links">
+                <a href="#">商品分類</a>
+                <a href="#">獨家品牌優惠</a>
+                <a href="#">最新優惠</a>
+                <a href="#">熱銷排行榜</a>
+                <a href="#">品牌總覽</a>
+                <a href="#">專題推介</a>
+                <a href="#">付款獎賞</a>
+            </div>
+            <input type="text" placeholder="搜尋商品..." class="search-box">
+        </div>
+    </header>
+    
+    <!-- Image Carousel with Left/Right Navigation -->
+    <div class="carousel-container">
+        <div class="carousel">
+            <!-- Carousel Item 1 -->
+            <div class="carousel-item">
+                <a href="#product1">
+                    <div style="background-color: #FFC0CB; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <div style="text-align: center; color: white; font-size: 28px; font-weight: bold;">
+                            護膚精選
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Carousel Item 2 -->
+            <div class="carousel-item">
+                <a href="#product2">
+                    <div style="background-color: #FFB6C1; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <div style="text-align: center; color: white; font-size: 28px; font-weight: bold;">
+                            Sasa X 六福珠寶
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Carousel Item 3 -->
+            <div class="carousel-item">
+                <a href="#product3">
+                    <div style="background-color: #FFA7B6; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <div style="text-align: center; color: white; font-size: 28px; font-weight: bold;">
+                            新品上市
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Carousel Item 4 -->
+            <div class="carousel-item">
+                <a href="#product4">
+                    <div style="background-color: #FF8C9E; height: 400px; display: flex; justify-content: center; align-items: center;">
+                        <div style="text-align: center; color: white; font-size: 28px; font-weight: bold;">
+                            會員專享
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Navigation Arrows -->
+        <div class="carousel-nav">
+            <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+            <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            <div class="indicator active"></div>
+            <div class="indicator"></div>
+            <div class="indicator"></div>
+            <div class="indicator"></div>
+        </div>
+    </div>
+    
+    <!--Image Button Group Menu-->
+    <div class="image-button-group">
+        <div class="image-button"><img src="menu1.jpg"></div>
+        <div class="image-button"><img src="menu2.jpg"></div>
+        <div class="image-button"><img src="menu3.jpg"></div>
+        <div class="image-button"><img src="menu4.jpg"></div>
+        <div class="image-button"><img src="menu5.png"></div>
+        <div class="image-button"><img src="menu6.jpg"></div>
+        <div class="image-button"><img src="menu7.jpg"></div>
+        <div class="image-button"><img src="menu8.jpg"></div>
+        <div class="image-button"><img src="menu9.jpg"></div>
+        <div class="image-button"><img src="menu10.jpg"></div>
+    </div>
+
+    <!--promotion slogan-->>
+    <div class="promotion-slogan"><img src="promotion2.webp"></div>
+
+    <!--countdown-->
+    <div class="countdown-container">
+        <div class="countdown-header">
+            <h1>限時秒殺</h1>
+        </div>
+        <div class="countdown-timer">
+            <div class="countdown-unit">
+                <div class="countdown-value" id="countdown-days">00</div>
+                <div class="countdown-label">日</div>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-unit">
+                <div class="countdown-value" id="countdown-hours">00</div>
+                <div class="countdown-label">時</div>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-unit">
+                <div class="countdown-value" id="countdown-minutes">00</div>
+                <div class="countdown-label">分</div>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-unit">
+                <div class="countdown-value" id="countdown-seconds">00</div>
+                <div class="countdown-label">秒</div>
+            </div>
+        </div>
+    </div>
+
+    <!--Shopping Item List-->
+    <div class="shopping-header"><h1>每週至筍價</h1></div>
+    <!-- Shopping Item Card -->
+    <div class="product-grid">
+        <div class="product-card">
+            <div class="product-image">
+                <img src="resources/product_resources/product1.jpeg" alt="Product Name">
+                <div class="product-tag">限時<br>秒殺</div>
+            </div>
+            <div class="product-details">
+                <h3 class="product-name">SK-II 青春露神仙水</h3>
+                <div class="product-price-row">
+                    <div class="product-price">
+                        <span class="current-price">HK$980</span>
+                        <span class="original-price">HK$1,280</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="action-btn wishlist-btn" aria-label="Add to Wishlist">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <button class="action-btn cart-btn" aria-label="Add to Cart">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="product_list_1"></div>
+        
+    </div>
+    <div class="shopping-header"><h1>韓國大熱 必買好物</h1></div>
+    <div class="shopping-header"><h1>精選優惠</h1></div>
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get carousel elements
+            const carousel = document.querySelector('.carousel');
+            const slides = document.querySelectorAll('.carousel-item');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            const indicators = document.querySelectorAll('.indicator');
+            
+            // Initialize variables
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            
+            // Function to update carousel position
+            function updateCarousel() {
+                carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+                
+                // Update indicators
+                indicators.forEach((indicator, index) => {
+                    if (index === currentSlide) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Event listeners for navigation buttons
+            prevBtn.addEventListener('click', function() {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+            });
+            
+            nextBtn.addEventListener('click', function() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateCarousel();
+            });
+            
+            // Event listeners for indicators
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', function() {
+                    currentSlide = index;
+                    updateCarousel();
+                });
+            });
+            
+            // Auto slide functionality
+            let autoSlideInterval = setInterval(function() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateCarousel();
+            }, 5000);
+            
+            // Pause auto slide on hover
+            carousel.addEventListener('mouseenter', function() {
+                clearInterval(autoSlideInterval);
+            });
+            
+            carousel.addEventListener('mouseleave', function() {
+                autoSlideInterval = setInterval(function() {
+                    currentSlide = (currentSlide + 1) % totalSlides;
+                    updateCarousel();
+                }, 5000);
+            });
+        });
+    </script>
+</main>
+</body>
+</html>
