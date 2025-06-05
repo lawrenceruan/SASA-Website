@@ -116,6 +116,7 @@
             position: relative;
             padding-bottom: 5px;
             font-size: clamp(11px, 1vw + 11px, 13px);
+            width:max-content;
         }
 
         /*search box*/
@@ -712,17 +713,17 @@
         }
 
         .product-details {
-            padding: 8px;
+            padding: 0px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
+            border:red 1px solid;
         }
 
         .product-name {
-            font-size: 12px;
+            font-size: 16px;
             font-weight: 500;
             color: #333;
-            margin-bottom: 4px;
             height: 2.4em;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -730,40 +731,50 @@
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             line-height: 1.2;
+            border:red 1px solid;
         }
 
-        .product-price-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-        }
-
-        .product-price {
-            display: flex;
+        .product-price-row
+        {
+            display:flex;
             flex-direction: column;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
+            justify-content: flex-start;
+        }
+
+        .product-price-bottom
+        {
+            display:flex;
+            flex-direction: row;
+            justify-content:space-between;
+            /* border:red 1px solid; */
         }
 
         .current-price {
             font-size: 18px;
             font-weight: bold;
             color: #ff4081;
+            overflow:hidden;
+            text-overflow: ellipsis;
+            align-content: flex-end;
+            /* border:red 1px solid; */
         }
 
         .original-price {
-            font-size: 14px;
+            font-size: 16px;
             color: #999;
             text-decoration: line-through;
+            overflow:hidden;
+            text-overflow: ellipsis;
+            /* border:rgb(0, 0, 0) 1px solid; */
+            align-content: flex-end;
         }
 
         .product-actions {
             display: flex;
-            gap: 1px;
+            flex-direction: row;
             border: #333 2px;
+            align-items: baseline;
+            /* border:red 1px solid; */
         }
 
         .action-btn {
@@ -785,14 +796,27 @@
         }
 
         .cart-btn:hover {
-            background-color: #ff4081;
+            background-color: #d1d1d1;
         }
 
         .cart-btn:hover i {
             color: white;
         }
 
-        /* Wishlist active state */
+        .wishlist-btn {
+            background-color: white;
+            color: #666;
+        }
+
+        .wishlist-btn:hover {
+            background-color: #d1d1d1;
+        }
+
+        .wishlist-btn:hover i
+        {
+            color: white;
+        }
+
         .wishlist-btn.active {
             background-color: white;
         }
@@ -800,6 +824,23 @@
         .wishlist-btn.active i {
             color: #ff4081;
             font-weight: 900;
+        }
+
+        .pink-more-button {
+            display: block;
+            width:max-content;
+            margin-left: auto;
+            margin-right:auto;
+            background-color: #ff4081;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(255, 64, 129, 0.3);
         }
 
         .product-grid {
@@ -814,22 +855,17 @@
             box-sizing: border-box;
         }
 
-        .pink-more-button {
-            display: inline-block;
-            background-color: #ff4081;
-            color: white;
-            padding: 10px 25px;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(255, 64, 129, 0.3);
+        .product-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0px, 1fr));
+            grid-template-rows: repeat(1, 1fr);
+            gap: 10px;
+            padding: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+            border: 1px red solid;
+            box-sizing: border-box;
         }
-
 
         .product-card {
             width: 100%;
@@ -852,6 +888,7 @@
         .product-image {
             position: relative;
             width: 100%;
+            height:auto;
             overflow: hidden;
             padding-top: 100%;
             border: 1px red solid;
@@ -866,20 +903,21 @@
             object-fit: contain;
         }
 
-        .product-tag {
+        .tag-overlay {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #ff32e4;
-            border-radius: 50%;
-            height: 65px;
-            width: 65px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
+            top: 0;
+            right: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: hidden;
+            transform: translate(0, 0);
+        }
+        
+        .tag-image {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display:block;
         }
 
         /*Cheap Product*/
@@ -1386,17 +1424,11 @@
             margin-bottom: 10px;
         }
 
-        .current-price {
+        /* .current-price {
             font-weight: bold;
             color: #ff4081;
             font-size: 16px;
-        }
-
-        .original-price {
-            color: #999;
-            text-decoration: line-through;
-            font-size: 13px;
-        }
+        } */
 
         /* Item Actions */
         .item-actions {
@@ -1405,7 +1437,7 @@
             padding: 0 12px;
         }
 
-        .action-btn {
+        /* .action-btn {
             width: 36px;
             height: 36px;
             border-radius: 50%;
@@ -1415,17 +1447,7 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
-        }
-
-        .wishlist-btn {
-            background-color: white;
-            color: #666;
-        }
-
-        .wishlist-btn:hover {
-            background-color: #ffe0eb;
-            color: #ff4081;
-        }
+        } */
 
         .add-btn {
             background-color: #f5f5f5;
@@ -1943,63 +1965,21 @@
             margin: 0;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 992px) {
-            .footer-container {
-                flex-wrap: wrap;
-            }
-
-            .footer-column {
-                flex: 1 0 50%;
-                margin-bottom: 30px;
-            }
-
-            .brand-column {
-                flex: 1 0 100%;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .footer-column {
-                flex: 1 0 100%;
-            }
-
-            .footer-logo-container {
-                justify-content: center;
-            }
-
-            .social-icons {
-                justify-content: center;
-            }
-
-            .links-column,
-            .app-column {
-                text-align: center;
-                align-items: center;
-            }
-
-            .links-column h4,
-            .app-column h4 {
-                margin-bottom: 15px;
-            }
-
-            .app-column {
-                align-items: center;
-            }
-        }
-
         .activity-list-link {
             display: flex;
             justify-content: space-between;
-            /* Changed from center */
             width: 100%;
         }
 
         .activity-list-link a {
             margin-left: auto;
-            /* This pushes the link to the right */
             margin-right: 400px;
-            /* Optional: Add some space from the right edge */
+            color:#1877F2;
+        }
+
+        .activity-list-link  a:active
+        {
+            color:#1877F2;
         }
 
         /* Image Grid - 1 row, 6 columns */
