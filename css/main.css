@@ -17,13 +17,13 @@
         header {
             position: sticky;
             background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
             top: 0;
             z-index: 100;
         }
 
         .top-menu {
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
             display: grid;
             grid-template-columns: max-content auto max-content;
@@ -31,14 +31,16 @@
             grid-template-areas:
                 "logo . sub"
                 "logo bottom sub";
-            /* max-width: max-content; */
             min-width: 1200px;
             max-height: max-content;
-            max-height: 150px;
             width: 100%;
-            margin: 0 auto;
+            margin-left:auto;
+            margin-right:auto;
+            margin-top: 10px;
+            margin-bottom: 15px;
             padding: 0;
             /* border: 1px solid #ff4081; */
+            /* overflow:hidden; */
         }
 
         /* Logo section that spans both rows */
@@ -48,16 +50,14 @@
             align-items: center;
             justify-content: flex-end;
             margin: 0px;
-            padding: 0px 15px;
+            padding: 0px 15px 0px 80px;
             height: 100%;
-            /* max-width: max-content; */
             /* border: 1px solid #ff4081; */
         }
 
         .logo {
             max-width: 140px;
-            max-height: 70px;
-            /* border: 1px solid #ff4081; */
+            max-height: 120px;
         }
 
         /* Main menu in bottom section */
@@ -68,6 +68,7 @@
             align-items: center;
             padding: 0px 15px;
             max-width: max-content;
+            width:100%;
             /* border: 1px solid #ff4081; */
         }
 
@@ -75,14 +76,13 @@
         .sub-menu {
             grid-area: sub;
             display: grid;
-            /* Changed to grid since you're using grid properties */
             grid-template-rows: 1fr 1fr;
             grid-template-areas:
                 "sub-top"
                 "sub-bottom";
             padding: 0px 15px;
             max-width: max-content;
-            /* border: 1px solid #ff4081; */
+            /* overflow:hidden; */
         }
 
         /* Header top section within sub menu */
@@ -91,7 +91,7 @@
             display: flex;
             justify-content: flex-end;
             padding: 0px 0px;
-            /* border: 1px solid #ff4081; */
+            /* overflow:hidden; */
         }
 
         /* Header bottom section within sub menu */
@@ -100,12 +100,12 @@
             display: flex;
             justify-content: flex-end;
             padding: 0px 0px;
-            /* border: 1px solid #ff4081; */
+            /* overflow:hidden; */
         }
 
         .nav-links {
             display: flex;
-            gap: 25px;
+            gap: 30px;
             max-width: max-content;
         }
 
@@ -115,9 +115,27 @@
             font-weight: 300;
             position: relative;
             padding-bottom: 5px;
-            font-size: clamp(11px, 1vw + 11px, 13px);
+            font-size: 14px;
             width:max-content;
         }
+
+        .menu-option{
+            display:flex;
+            position:relative;
+            width:max-content;
+            justify-content: center;
+            align-items: center;
+            max-width: max-content;
+        }
+
+        .menu-option:hover .dropdown-content
+        {
+            display:block;
+        }
+        /* .nav-links a:hover .dropdown-content {
+            display: block;
+
+        } */
 
         /*search box*/
         .search-container {
@@ -182,7 +200,7 @@
             display: none;
             position: absolute;
             top: 100%;
-            right: 0;
+            left:20%;
             background-color: white;
             min-width: 120px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -276,243 +294,150 @@
         }
 
         /* Image Carousel Styles - Fixed Version */
-        .carousel-container {
+        /* .carousel-container {
             position: relative;
-            max-width: max-content;
+            max-width: 100%;
+            width:100%;
             margin: 0 auto;
-            /* overflow:auto; */
             box-sizing: border-box;
             overflow: hidden;
+            min-height: 435px;
+            height:50vh;
+            max-height: 800px;
         }
 
         .carousel {
             display: flex;
             transition: transform 0.5s ease-in-out;
-            /* Remove fixed height */
             width: 100%;
+            height:100%;
             position: relative;
         }
 
         .carousel-item {
             min-width: 100%;
             width: 100%;
+            height:100%;
             flex: 0 0 100%;
             position: relative;
             box-sizing: border-box;
         }
+        .carousel-image {
+            width: 100%;
+            height: 100%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }   
 
-        .carousel-item a {
-            display: block;
+        .carousel-image img {
             width: 100%;
             height: 100%;
-            text-decoration: none;
+            object-fit: contain;
+            display: block;
+        } */
+       .carousel-container {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+            min-height: 50vh;
+            max-height: 70vh;
+            height:70vh;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display:flex;
+        }
+
+        .carousel-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            z-index: 1;
+        }
+
+        .carousel-item.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .carousel-image {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .carousel-image img {
             width: 100%;
-            height: auto;
-            /* Let height adjust to maintain aspect ratio */
-            max-height: 650px;
-            /* Maximum height */
-            object-fit: contain;
+            height: 100%;
+            object-fit: cover;
+            top: 0;
+            left: 0;
             display: block;
         }
 
-        .carousel-image:hover {
-            cursor: pointer;
-        }
-
-        .carousel-btn {
-            display: inline-block;
-            background-color: #ff4081;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 14px;
-        }
-
+        /* Navigation Arrows */
         .carousel-nav {
             position: absolute;
             top: 50%;
             width: 100%;
+            transform: translateY(-50%);
             display: flex;
             justify-content: space-between;
-            transform: translateY(-50%);
             padding: 0 20px;
-            z-index: 3;
-            pointer-events: none;
-            /* Prevent nav from blocking slides */
+            z-index: 10;
         }
 
-        .carousel-nav button {
+        .prev-btn, .next-btn {
             background-color: rgba(255, 255, 255, 0.7);
             border: none;
-            color: #333;
-            font-size: 18px;
-            padding: 15px;
-            cursor: pointer;
-            transition: background-color 0.3s;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            pointer-events: auto;
-            /* Make buttons clickable */
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
-        .carousel-nav button:hover {
+        .prev-btn:hover, .next-btn:hover {
             background-color: rgba(255, 255, 255, 0.9);
         }
 
+        /* Indicators */
         .carousel-indicators {
             position: absolute;
             bottom: 20px;
-            left: 0;
-            right: 0;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
-            justify-content: center;
             gap: 10px;
-            z-index: 3;
+            z-index: 10;
         }
 
         .indicator {
             width: 12px;
             height: 12px;
-            background-color: rgba(255, 255, 255, 0.5);
             border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
         .indicator.active {
-            background-color: #ff4081;
+            background-color: white;
         }
-
-        /* Responsive adjustments
-        @media (max-width: 992px) {
-            .carousel-content {
-                bottom: 30px;
-                left: 30px;
-                padding: 15px;
-                max-width: 400px;
-            }
-
-            .carousel-content h2 {
-                font-size: 22px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .carousel-image {
-                max-height: 500px;
-            }
-
-            .carousel-content {
-                bottom: 20px;
-                left: 20px;
-                padding: 12px;
-                max-width: 350px;
-            }
-
-            .carousel-content h2 {
-                font-size: 20px;
-                margin-bottom: 8px;
-            }
-
-            .carousel-content p {
-                margin-bottom: 10px;
-                font-size: 14px;
-            }
-
-            .carousel-btn {
-                padding: 8px 16px;
-                font-size: 12px;
-            }
-
-            .carousel-nav button {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .carousel-image {
-                max-height: 400px;
-            }
-
-            .carousel-content {
-                bottom: 15px;
-                left: 50%;
-                transform: translateX(-50%);
-                padding: 10px;
-                max-width: 85%;
-                width: 85%;
-                text-align: center;
-            }
-
-            .carousel-content h2 {
-                font-size: 18px;
-            }
-
-            .carousel-content p {
-                font-size: 13px;
-                display: -webkit-box;
-                -webkit-line-clamp: 2;
-                -webkit-box-orient: vertical;
-                overflow: hidden;
-            }
-
-            .carousel-nav button {
-                width: 35px;
-                height: 35px;
-                font-size: 14px;
-            }
-        }
-
-        @media (max-width: 375px) {
-            .carousel-image {
-                max-height: 300px;
-            }
-
-            .carousel-nav button {
-                width: 30px;
-                height: 30px;
-                font-size: 12px;
-            }
-        } */
-
-        /* Image Button Group Styles
-        .image-button-group {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 30px 20px;
-        }
-
-        .image-button {
-            width: 100px;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none;
-            color: #333;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .image-button img {
-            width: 100%;
-            height: 100px;
-            object-fit: cover;
-            transition: transform 0.5s;
-        } */
 
         /* Single-line Image Button Group */
         .image-button-group {
@@ -557,50 +482,11 @@
             text-overflow: ellipsis;
         }
 
-        /* Responsive adjustments for various screen sizes */
-        /* @media (max-width: 768px) {
-            .image-button {
-                width: 60px;
-            }
-
-            .image-button img {
-                height: 60px;
-            }
-
-            .image-button-title {
-                font-size: 10px;
-            }
-
-            .image-button-group {
-                gap: 8px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .image-button {
-                width: 50px;
-            }
-
-            .image-button img {
-                height: 50px;
-            }
-
-            .image-button-title {
-                font-size: 9px;
-            }
-
-            .image-button-group {
-                gap: 6px;
-                justify-content: flex-start;
-
-            }
-        } */
-
         /* promotion slogan*/
         .promotion-slogan {
             margin-left: auto;
             margin-right: auto;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             width: 100%;
             max-width: 1200px;
             display: flex;
@@ -620,7 +506,7 @@
         }
 
         .countdown-header {
-            padding: 30px 30px;
+            padding: 30px 30px 30px 30px;
             width: fit-content;
             margin-left: auto;
             margin-right: auto;
@@ -630,49 +516,48 @@
         .countdown-header h1 {
             color: #ff008c;
             font-family: "微軟正黑體";
-            font-size: 25px;
+            font-size: 22px;
             font-weight: normal;
         }
 
         .countdown-container {
             display: flex;
-            gap: clamp(5px, 1.5vw, 10px);
+            gap: 10px;
             width: 100%;
             max-width: 400px;
             justify-content: center;
             align-items: center;
-            margin: 0 auto;
+            margin: 0 auto 30px auto;
             /* border: 1px solid #ff4081; */
         }
 
         .countdown-box {
-            display: flex;
+            display:flex;
             flex-direction: column;
-            align-items: center;
+            align-items:center;
             background-color: #f5f5f5;
             border-radius: 5px;
-            width: 80px;
-            height: 100px;
+            width: 50px;
+            height: 65px;
             justify-content: center;
             position: relative;
-            padding: clamp(2px, 1vw, 5px);
         }
 
         .countdown-number {
             color: #ff008c;
-            font-size: 40px;
-            /* Responsive font size */
+            font-size: 30px;
             font-weight: normal;
             line-height: 1;
-            margin-bottom: clamp(2px, 1vw, 5px);
-            /* Responsive margin */
+            margin-bottom: 12px;
+            /* border:red 1px solid; */
         }
 
         .countdown-label {
             color: #ff008c;
             font-size: 15px;
             position: absolute;
-            bottom: clamp(4px, 1.5vw, 8px);
+            bottom: 4px;
+            /* border:red 1px solid; */
         }
 
         .pulse {
